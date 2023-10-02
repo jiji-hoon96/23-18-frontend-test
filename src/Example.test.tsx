@@ -1,10 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { App } from './App';
+import { Example } from './Example';
 
-describe('App', () => {
+describe('Example', () => {
   it('should render without crashing', () => {
-    render(<App />);
+    render(<Example />);
 
     expect(screen.getByText('Hello, World!')).toBeInTheDocument();
   });
