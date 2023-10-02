@@ -1,0 +1,31 @@
+{
+  "root": true,
+  "parserOptions": {
+    "project": true,
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended-type-checked",
+    "plugin:@typescript-eslint/stylistic-type-checked",
+    "plugin:react/recommended",
+    "plugin:react/jsx-runtime",
+    "plugin:react-hooks/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["@typescript-eslint", "react", "react-hooks", "prettier"],
+  "overrides": [
+    {
+      "env": {
+        "jest/globals": true
+      },
+      "extends": ["plugin:jest/recommended"],
+      "files": ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[tj]s?(x)", "**/jest-setup.ts"],
+      "plugins": ["jest"]
+    }
+  ]
+}
