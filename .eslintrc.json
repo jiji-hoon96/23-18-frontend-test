@@ -18,6 +18,11 @@
     "plugin:prettier/recommended"
   ],
   "plugins": ["@typescript-eslint", "react", "react-hooks", "prettier"],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "overrides": [
     {
       "env": {
