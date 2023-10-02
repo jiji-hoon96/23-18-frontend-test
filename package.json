@@ -19,6 +19,10 @@
     "url": "https://github.com/Learning-Is-Vital-In-Development/23-18-frontend-test/issues"
   },
   "homepage": "https://github.com/Learning-Is-Vital-In-Development/23-18-frontend-test#readme",
+  "engines": {
+    "node": "^18.18.0",
+    "npm": "^9.8.1"
+  },
   "dependencies": {
     "@babel/core": "^7.23.0",
     "@babel/preset-env": "^7.22.20",
