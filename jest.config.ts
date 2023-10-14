@@ -8,6 +8,13 @@ const config: Config = {
   testPathIgnorePatterns: ['/node_modules/'],
   testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
   moduleDirectories: ['node_modules', 'src'],
+  transform: {
+    '^.+\\.[jt]sx?$': 'babel-jest',
+    '^.+\\.css$': [
+      'jest-transform-css',
+      { modules: true, generateScopedName: '[name]-[local]-[hash:base64:4]' },
+    ],
+  },
 };
 
 export default config;
