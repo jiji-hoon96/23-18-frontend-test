@@ -1,30 +1,23 @@
 import { useState } from 'react';
 
-//내가 한 것
-// export const Stack = ({ elements }: any) => {
-//     const [data, setDate] = useState()
+const Stack = ({ elements }: { elements: string[] }) => {
+  const [stack, setStack] = useState(elements);
 
-//     return (
-//         <div>
-//             <button type="submit">
-//                 pop
-//             </button>
-//         </div>
-//     )
-// };
-
-export const Stack = ({ elements }: { elements: string[] }) => {
-  const [data] = useState(elements);
-
+  const handleClickPop = () => {
+    const newStack = [...stack];
+    newStack.pop();
+    setStack(newStack);
+  };
   return (
-    <>
-      <button type="submit">
-        <ul>
-          {data.map((el, ind) => {
-            return <li key={ind}>{el}</li>;
-          })}
-        </ul>
-      </button>
-    </>
+    <div>
+      <ul>
+        {stack.map((item, index) => (
+          <li key={index}>{item} </li>
+        ))}
+      </ul>
+      <button onClick={handleClickPop}>pop</button>
+    </div>
   );
 };
+
+export default Stack;
