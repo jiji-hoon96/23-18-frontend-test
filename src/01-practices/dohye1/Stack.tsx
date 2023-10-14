@@ -15,9 +15,7 @@ export default function Stack({ stack: defaultStack }: { stack: string[] }) {
       <button onClick={handlePop}>pop</button>
       <ul>
         {stack.map((v) => (
-          <li key={v} data-testid={v}>
-            {v}
-          </li>
+          <li key={v}>{v}</li>
         ))}
       </ul>
     </div>

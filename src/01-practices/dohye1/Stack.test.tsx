@@ -10,7 +10,7 @@ describe('Stack', () => {
     expect(screen.getByRole('button', { name: 'pop' })).toBeInTheDocument();
   });
 
-  it('pop 버튼이 눌리면 A가 stack에서 빠져야한다.', async () => {
+  it('pop 버튼이 눌리면 마지막 값이 stack에서 빠져야한다.', async () => {
     const stack = ['A', 'B', 'C'];
 
     // given
@@ -22,6 +22,6 @@ describe('Stack', () => {
     await user.click(button);
 
     // then
-    expect(screen.getByTestId('C')).not.toBeInTheDocument();
+    expect(screen.queryByText(stack[stack.length - 1])).not.toBeInTheDocument();
   });
 });
