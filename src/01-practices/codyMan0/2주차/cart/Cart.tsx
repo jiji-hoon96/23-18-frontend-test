@@ -12,7 +12,9 @@ export const Cart = ({ restaurantList }: CartProps) => {
   return (
     <div className="layout">
       <h1>{restaurantName}</h1>
-      <CartItem foodInfoList={foodInfoList} />
+      {foodInfoList.map((foodInfo, index) => {
+        return <CartItem key={index} foodInfo={foodInfo} />;
+      })}
     </div>
   );
 };
