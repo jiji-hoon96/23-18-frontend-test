@@ -31,17 +31,10 @@ describe('Example', () => {
     ],
   };
 
-  // Point1 : 2줄 : 2,700원에서 2줄을 Optional로 봤는데 어떻게 자료구조로 나타낼지 고민
-
-  // it('should render without crashing', () => {
-  //   render(<Cart />);
-
-  //   expect(screen.getByText('Hello, World!')).toBeInTheDocument();
-  // });
-
   it('should render hidden', () => {
     render(<Cart restaurantList={restaurantList} />);
-    console.log(restaurantList);
-    expect(screen.getByText('Hello, World!')).not.toBeVisible();
+
+    const restaurantNameElement = screen.getByText(restaurantList.restaurantName);
+    expect(restaurantNameElement).toBeInTheDocument();
   });
 });
