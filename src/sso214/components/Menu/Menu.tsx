@@ -3,11 +3,11 @@ import { MenuInfo } from './types';
 import S from './style.module.css';
 
 interface Props {
-  data: MenuInfo;
+  menu: MenuInfo;
 }
 
-const Menu = ({ data }: Props) => {
-  const { name, options, image, description, isPopular, tags } = data;
+const Menu = ({ menu }: Props) => {
+  const { name, options, image, description, isPopular, tags } = menu;
 
   return (
     <li className={S.container}>
