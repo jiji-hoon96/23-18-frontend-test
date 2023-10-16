@@ -1,8 +1,11 @@
 export interface MenuInfo {
-  title: string;
+  name: string;
+  options: {
+    name?: string;
+    price: number;
+  }[];
+  image?: string;
   description?: string;
-  price: string;
   isPopular?: boolean;
   tags?: string[];
-  imgUrl?: string;
 }
