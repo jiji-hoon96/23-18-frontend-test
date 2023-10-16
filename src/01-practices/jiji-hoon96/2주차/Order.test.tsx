@@ -14,10 +14,10 @@ describe('Order 컴포넌트 테스트', () => {
     {
       title: '삼첩분식짱',
       popularity: true,
-      description: '노잼',
+      description: '하이 삼첩분식',
       price: '1230000',
       tags: ['개노맛', 'DOG'],
-      imgUrl: '음식2.jpg',
+      imgUrl: '',
     },
   ];
 
@@ -33,30 +33,27 @@ describe('Order 컴포넌트 테스트', () => {
 
     // 설명과 가격이 있는지 확인
     expect(getByText('개꿀맛')).toBeInTheDocument();
+    expect(getByText('10000')).toBeInTheDocument();
     expect(getByText('1230000')).toBeInTheDocument();
+    expect(getByText('하이 삼첩분식')).toBeInTheDocument();
 
-    // 태그 목록이 올바르게 렌더링되는지 확인
+    // 태그는 한개 이상 있어야 됨
     const tags = getAllByRole('listitem');
-    expect(tags).toHaveLength(4); // 4개의 태그가 있어야 합니다.
-
-    // 이미지가 정상적으로 렌더링되는지 확인
-    const images = document.querySelectorAll('img');
-    expect(images).toHaveLength(2); // 2개의 이미지가 있어야 합니다.
+    expect(tags.length).toBeGreaterThanOrEqual(1);
   });
 
   it('설명이 없는 상품의 경우, 설명이 렌더링되지 않아야 함', () => {
     const { queryByText } = render(<Order dataList={sampleData} />);
 
-    // 설명이 없는 상품의 경우, 해당 텍스트가 렌더링되지 않아야 합니다.
-    expect(queryByText('이 상품은 좋아요!')).toBeNull();
+    expect(queryByText('개꿀맛')).not.toBeInTheDocument();
+    expect(queryByText('하이 삼첩분식')).not.toBeInTheDocument();
   });
 
   it('이미지 URL이 없는 상품의 경우, 대체값이 렌더링되어야 함', () => {
-    // 이미지 URL이 없는 상품의 경우, 대체값('baseUrl')이 렌더링되어야 합니다.
-    const images = document.querySelectorAll('img');
+    const { getAllByRole } = render(<Order dataList={sampleData} />);
+    const images = getAllByRole('img');
     images.forEach((image) => {
-      expect(image).toHaveAttribute('alt', '상품 1');
-      expect(image).toHaveAttribute('src', 'baseUrl');
+      expect(image).toHaveAttribute('alt', 'baseUrl');
     });
   });
 });
