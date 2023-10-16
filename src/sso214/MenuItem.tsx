@@ -26,9 +26,11 @@ const MenuItem = ({ data }: Props) => {
         )}
       </div>
 
-      <div className={S.imgBox}>
-        <img src={imgUrl ?? 'baseUrl'} alt={title} />
-      </div>
+      {imgUrl && (
+        <div className={S.imgBox}>
+          <img src={imgUrl} alt={title} />
+        </div>
+      )}
     </div>
   );
 };
