@@ -7,8 +7,8 @@ interface Props extends React.HTMLAttributes<HTMLHeadingElement> {
 }
 
 const Heading = ({ headingLevel, children, className = '', ...res }: Props) => {
-  const Heading = ({ ...props }: React.HTMLAttributes<HTMLHeadingElement>) =>
-    React.createElement(headingLevel, props, children);
+  const Heading = ({ children: headingChildren, ...props }: React.HTMLAttributes<HTMLHeadingElement>) =>
+    React.createElement(headingLevel, props, headingChildren);
   const headingStyle: Record<HeadingLevel, string> = {
     h1: S.h1,
     h2: S.h2,
