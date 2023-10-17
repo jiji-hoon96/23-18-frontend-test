@@ -8,8 +8,8 @@ interface OrderProps {
 export const Order = ({ dataList }: OrderProps) => {
   return (
     <>
-      {dataList.map((data) => {
-        <div className={styles.wrap}>
+      {dataList.map((data, index) => (
+        <div className={styles.wrap} key={index}>
           <div className={styles.info}>
             <h1 className={styles.title}>
               {data.title}
@@ -29,8 +29,8 @@ export const Order = ({ dataList }: OrderProps) => {
           <div className={styles.imgBox}>
             <img src={data.imgUrl ?? 'baseUrl'} alt={data.title} />
           </div>
-        </div>;
-      })}
+        </div>
+      ))}
     </>
   );
 };
