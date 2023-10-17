@@ -1,13 +1,17 @@
-import Card from './Card';
-import type { CardInterface } from '../type';
+import Menu from './Menu';
+import type { MenuListInterface } from '../types';
 
-const MenuList = ({ data }: { data: CardInterface[] }) => {
+const MenuList = ({ data }: { data: MenuListInterface }) => {
+  const { title, menus } = data;
   return (
-    <ol>
-      {data.map((item) => (
-        <Card data={item} key={item.id} />
-      ))}
-    </ol>
+    <>
+      <h2>{title}</h2>
+      <ol>
+        {menus.map((item, index) => (
+          <Menu data={item} key={index} />
+        ))}
+      </ol>
+    </>
   );
 };
 
