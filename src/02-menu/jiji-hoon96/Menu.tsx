@@ -1,4 +1,4 @@
-import S from './Order.module.css';
+import S from './Menu.module.css';
 import { MenuProps } from './types';
 
 interface MenuListProps {
