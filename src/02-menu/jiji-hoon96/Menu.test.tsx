@@ -1,28 +1,33 @@
 import { screen, render } from '@testing-library/react';
-import { Order } from './Order';
+import { Menu } from './Menu';
 
-describe('Order 컴포넌트 테스트', () => {
+describe('Menu 컴포넌트 테스트', () => {
+  const title = '분식의 왕';
   const sampleData = [
     {
-      title: '만두떠보기',
-      popularity: true,
+      name: '만두떠보기',
+      isPopular: true,
       description: '개꿀맛',
-      price: '10000',
+      options: {
+        price: 10000,
+      },
       tags: ['꿀맛', 'JMT'],
-      imgUrl: '음식1.jpg',
+      image: '음식1.jpg',
     },
     {
-      title: '삼첩분식짱',
-      popularity: true,
+      name: '삼첩분식짱',
+      isPopular: true,
       description: '하이 삼첩분식',
-      price: '1230000',
+      options: {
+        price: 1230000,
+      },
       tags: ['개노맛', 'DOG'],
-      imgUrl: '',
+      image: '',
     },
   ];
 
   it('올바르게 렌더링되는지 확인', () => {
-    const { getByText, getAllByRole } = render(<Order dataList={sampleData} />);
+    const { getByText, getAllByRole } = render(<Menu menus={sampleData} title={title} />);
 
     // 각 상품의 제목이 렌더링되는지 확인
     expect(getByText('만두떠보기')).toBeInTheDocument();
@@ -51,16 +56,16 @@ describe('Order 컴포넌트 테스트', () => {
   });
 
   it('설명이 없는 상품의 경우, 설명이 렌더링되지 않아야 함', () => {
-    const { queryByText } = render(<Order dataList={sampleData} />);
+    const { queryByText } = render(<Menu menus={sampleData} title={title} />);
 
     expect(queryByText('이런건 없겟지?')).not.toBeInTheDocument();
     expect(queryByText('이것또한')).not.toBeInTheDocument();
   });
 
   it('이미지 URL이 없는 상품의 경우, 대체값이 렌더링되어야 함', () => {
-    const { getAllByAltText } = render(<Order dataList={sampleData} />);
+    const { getAllByAltText } = render(<Menu menus={sampleData} title={title} />);
 
-    const altTexts = sampleData.filter((data) => !data.imgUrl).map((data) => data.title);
+    const altTexts = sampleData.filter((data) => !data.image).map((data) => data.name);
 
     altTexts.forEach((altText) => {
       expect(getAllByAltText(altText).length).toBeGreaterThan(0);

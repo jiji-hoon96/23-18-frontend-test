@@ -1,8 +1,11 @@
-export interface OrderType {
-  title: string;
-  imgUrl?: string;
-  price: string;
-  description: string;
+export interface MenuProps {
+  name: string;
+  image?: string;
+  options: {
+    name?: string;
+    price: number;
+  };
+  description?: string;
   tags: string[];
-  popularity: boolean;
+  isPopular: boolean;
 }
