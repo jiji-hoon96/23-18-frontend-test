@@ -1,0 +1,117 @@
+.wrap {
+  padding: 10px;
+  display: flex;
+  column-gap: 8px;
+  border-bottom: 1px solid #f6f6f6;
+}
+
+.main {
+  display: flex;
+  padding: 10px;
+}
+
+.footer {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  padding: 10px;
+}
+
+.mainHeader {
+  display: flex;
+  margin: 10px 5px;
+}
+
+.mainHeader h1 {
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 5px;
+}
+
+.info p {
+  font-size: 12px;
+  color: gray;
+}
+
+.name {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.popularTag {
+  margin-left: 4px;
+}
+
+.description {
+  margin: 10px 5px;
+}
+
+.description span {
+  font-size: 14px;
+  color: gray;
+}
+
+.price {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.menuList {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}
+
+.imgBox {
+  width: 200px;
+  height: 200px;
+  flex: none;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid gainsboro;
+}
+
+.imgBox img {
+  object-fit: cover;
+}
+
+.essential {
+  background-color: #eef8fa;
+  color: #357bd3;
+  border-radius: 10px;
+  border: none;
+}
+
+.add {
+  border: 0px;
+  margin: 0px;
+  outline: none;
+  appearance: none;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+  filter: none;
+  user-select: none;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background: #2bc1bc;
+  position: relative;
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.4px;
+  font-weight: 700;
+  height: 56px;
+  padding: 0px 16px;
+}
