@@ -1,6 +1,11 @@
 import S from './MenuOption.module.css';
+import { MenuOptionsProps } from './types';
 
-export const MenuOption = () => {
+interface MenuOptionListProps {
+  menu: MenuOptionsProps[];
+}
+
+export const MenuOption = ({ menu }: MenuOptionListProps) => {
   return (
     <>
       <div className={S.wrap}>
