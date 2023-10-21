@@ -2,14 +2,14 @@ import { render } from '@testing-library/react';
 import { MenuOption } from './MenuOption';
 
 describe('MenuOption 컴포넌트 테스트', () => {
-  const sampleData = [
+  const optionListData = [
     {
       name: '[국내산갈비] 전통 돼지갈비찜',
       isPopular: true,
       description: '1인분에만 밥이 포함되어있습니다 기본구성은 석박지+김+갈비찜입니다',
       review: 215,
       optionSelect: true,
-      options: [
+      selectList: [
         {
           name: '1인분(밥포함)',
           price: 18000,
@@ -34,11 +34,17 @@ describe('MenuOption 컴포넌트 테스트', () => {
       description: '스팸 4조각, 밥도둑',
       review: 6,
       optionSelect: false,
-      options: [],
+      selectList: [],
       count: 1,
       image: '음식2.jpg',
       minOrderPrice: 9900,
       totalPrice: 10000,
     },
   ];
+
+  it('옳바르게 렌더링 되는지 확인하기', () => {
+    const { getByText } = render(<MenuOption optionList={optionListData} />);
+
+    expect(getByText('스팸구이')).toBeInTheDocument();
+  });
 });

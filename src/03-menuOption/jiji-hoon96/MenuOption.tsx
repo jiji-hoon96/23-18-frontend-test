@@ -2,42 +2,67 @@ import S from './MenuOption.module.css';
 import { MenuOptionsProps } from './types';
 
 interface MenuOptionListProps {
-  menu: MenuOptionsProps[];
+  optionList: MenuOptionsProps[];
 }
 
-export const MenuOption = ({ menu }: MenuOptionListProps) => {
+export const MenuOption = ({ optionList }: MenuOptionListProps) => {
   return (
     <>
-      <div className={S.wrap}>
-        <div className={S.imgBox}>
-          <img src="baseURL" />
-        </div>
-        <div className={S.main}>
+      {optionList.map((option, index) => (
+        <div className={S.wrap} key={index}>
+          <div className={S.imgBox}>
+            <img src={option.image ?? 'baseURL'} alt={option.name} />
+          </div>
+          <div className={S.main}>
+            <div className={S.mainHeader}>
+              {option.isPopular && <span className={S.popularTag}>인기</span>}
+              <h1>{option.name}</h1>
+            </div>
+            <div className={S.description}>
+              <span>{option.description}</span>
+            </div>
+          </div>
+          <div className={S.main}>
+            <div className={S.mainHeader}>
+              <p className={S.name}>가격</p>
+              <span className={S.essential}>필수</span>
+            </div>
+            {option.optionSelect && (
+              <ul className={S.tagList}>
+                {option.selectList.map((select, index) => (
+                  <li key={index} className={S.optionList}>
+                    <div>
+                      <input type="radio" />
+                      <span>{select.name}</span>
+                    </div>
+                    <span>{select.price}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
           <div className={S.mainHeader}>
-            {true && <span className={S.popularTag}>인기</span>}
-            <h1>[국내산갈비] 전통 돼지갈비찜</h1>
+            <p className={S.name}>수량</p>
+            <div className={S.amountBox}>
+              <button>-</button>
+              <input value={option.count} />
+              <button>+</button>
+            </div>
           </div>
-          <div className={S.description}>
-            <span>설명</span>
+          <div className={S.textarea}>
+            <span>메뉴 사진은 연출된 이미지로 실제 조리된 음식과 다를 수 있습니다.</span>
           </div>
-        </div>
-        <div className={S.main}>
-          <div className={S.mainHeader}>
-            <p className={S.name}>가격</p>
-            <span className={S.essential}>필수</span>
-          </div>
-          {true && <ul className={S.menuList}></ul>}
-        </div>
-        <div className={S.footer}>
-          <div className={S.info}>
-            <p>배달최소금액</p>
-            <span>가격</span>
-          </div>
-          <div>
-            <button>담기</button>
+          <div className={S.footer}>
+            <div className={S.info}>
+              <p>배달최소금액</p>
+              <span>{option.minOrderPrice}</span>
+            </div>
+            <div>
+              <button className={S.add}>{`${option.totalPrice} 담기`}</button>
+            </div>
           </div>
         </div>
-      </div>
+      ))}
     </>
   );
 };
