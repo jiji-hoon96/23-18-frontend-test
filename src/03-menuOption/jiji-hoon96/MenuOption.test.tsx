@@ -23,10 +23,8 @@ describe('MenuOption 컴포넌트 테스트', () => {
           price: 45000,
         },
       ],
-      count: 1,
       image: '음식1.jpg',
       minOrderPrice: 9900,
-      totalPrice: 18000,
     },
     {
       name: '스팸구이',
@@ -35,10 +33,9 @@ describe('MenuOption 컴포넌트 테스트', () => {
       review: 6,
       optionSelect: false,
       selectList: [],
-      count: 1,
       image: '음식2.jpg',
       minOrderPrice: 9900,
-      totalPrice: 10000,
+      defaultPrice: 5000,
     },
   ];
 
