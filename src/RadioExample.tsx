@@ -10,7 +10,7 @@ export const RadioExample = ({ list }: RadioExampleProps) => {
   return (
     <fieldset role="radiogroup">
       {list.map(({ name, price }, index) => (
-        <div key={index}>
+        <label key={index}>
           <div>
             <input
               aria-label={name}
@@ -23,7 +23,7 @@ export const RadioExample = ({ list }: RadioExampleProps) => {
             <span>{name}</span>
           </div>
           <span>{price}</span>
-        </div>
+        </label>
       ))}
     </fieldset>
   );
