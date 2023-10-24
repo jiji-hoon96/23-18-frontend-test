@@ -49,6 +49,7 @@ export const MenuOption = (sampleData: MenuOptionsProps) => {
                     <li key={index} className={S.sampleDataList}>
                       <div>
                         <input
+                          name="menuSelect"
                           type="radio"
                           value={select.price}
                           onChange={() => handleOptionSelect(select.price)}
@@ -81,7 +82,7 @@ export const MenuOption = (sampleData: MenuOptionsProps) => {
             <button
               onClick={() => alert(`${totalPrice}원을 주문하시겠습니까?`)}
               className={S.add}
-            >{`${totalPrice} 담기`}</button>
+            >{`${totalPrice}원 담기`}</button>
           </div>
         </div>
       </div>
