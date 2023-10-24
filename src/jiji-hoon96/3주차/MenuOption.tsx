@@ -6,6 +6,8 @@ export const MenuOption = (sampleData: MenuOptionsProps) => {
   const [count, setCount] = useState<number>(1);
   const [totalPrice, setTotalPrice] = useState<number>(0);
 
+  //TODOS : selectOption 있어도 수량 체크하는 것 있음.
+
   useEffect(() => {
     setTotalPrice(sampleData.defaultPrice * count);
   }, [sampleData.defaultPrice, count, sampleData.optionSelect]);
@@ -51,6 +53,7 @@ export const MenuOption = (sampleData: MenuOptionsProps) => {
                         <input
                           name="menuSelect"
                           type="radio"
+                          checked
                           value={select.price}
                           onChange={() => handleOptionSelect(select.price)}
                         />
@@ -65,9 +68,13 @@ export const MenuOption = (sampleData: MenuOptionsProps) => {
         <div className={S.mainHeader}>
           <p className={S.name}>수량</p>
           <div className={S.amountBox}>
-            <button onClick={() => setCount((prev) => prev - 1)}>-</button>
+            <button role="button" aria-label="decreaseBtn" onClick={() => setCount((prev) => prev - 1)}>
+              -
+            </button>
             <input value={count} defaultValue={count} />
-            <button onClick={() => setCount((prev) => prev + 1)}>+</button>
+            <button role="button" aria-label="increaseBtn" onClick={() => setCount((prev) => prev + 1)}>
+              +
+            </button>
           </div>
         </div>
         <div className={S.textarea}>
