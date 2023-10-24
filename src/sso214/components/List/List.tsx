@@ -1,10 +1,13 @@
 import React from 'react';
 
-interface Props<T> {
+export const CONTAINER_TAGS = ['ul', 'ol', 'div'];
+type containerTag = (typeof CONTAINER_TAGS)[number];
+
+export interface Props<T> {
   data: T[];
   renderItem: ({ item: T }) => React.ReactNode;
   keyExtractor: (item: T) => string | number;
-  containerTag: 'ul' | 'ol' | 'div';
+  containerTag: containerTag;
 }
 
 const List = <T extends Record<string, { idx: string }>>({
@@ -20,7 +23,7 @@ const List = <T extends Record<string, { idx: string }>>({
     React.createElement(containerTag, props, children);
 
   return (
-    <Container>
+    <Container data-testid="list">
       {data.map((item) => {
         const key = keyExtractor(item);
         const contents = renderItem({ item });
