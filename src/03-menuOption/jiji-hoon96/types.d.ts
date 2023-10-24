@@ -7,5 +7,5 @@ export interface MenuOptionsProps {
   selectList: { name: string; price: number }[] | [];
   image: string;
   minOrderPrice: number;
-  defaultPrice?: number;
+  defaultPrice: number;
 }
