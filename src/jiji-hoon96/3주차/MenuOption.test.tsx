@@ -63,20 +63,28 @@ describe('MenuOption Component', () => {
   it('수량을 선택할 수 있습니다.', async () => {
     const user = userEvent.setup();
 
-    const { getByRole } = render(<MenuOption {...sampleOne} />);
+    const { getByRole, queryByRole } = render(<MenuOption {...sampleOne} />);
     const decrementButton = getByRole('button', { name: 'decreaseBtn' });
     const increaseButton = getByRole('button', { name: 'increaseBtn' });
-    const countSpan = getByRole('span', { name: 'countSpan' });
+    const countSpan = queryByRole('span', { name: 'countSpan' });
+    await user.click(increaseButton);
+    expect(countSpan).toHaveTextContent('2');
+    await user.click(decrementButton);
+    expect(countSpan).toHaveTextContent('1');
+    await user.click(decrementButton);
+    await user.click(increaseButton);
+    await user.click(increaseButton);
+    await user.click(increaseButton);
+    expect(countSpan).toHaveTextContent('3');
+  });
 
-    await user.click(increaseButton); // 수량 증가
-    expect(countSpan).toHaveValue('2');
-
-    await user.click(decrementButton); // 수량 감소
-    expect(countSpan).toHaveValue('1');
+  it('클릭하여 숫자를 조절할 수 있으며, 최소 값은 1입니다.', () => {
+    const { queryByRole } = render(<MenuOption {...sampleOne} />);
+    const countSpan = queryByRole('span', { name: 'countSpan' });
+    expect(countSpan).toHaveTextContent('1');
   });
 });
 
-//   it('클릭하여 숫자를 조절할 수 있으며, 최소 값은 1입니다.', () => {}),
 //   it('가장 아래에는 장바구니에 담기 버튼이 있습니다.', () => {}),
 //   it('${최종_가격}원 담기 형식으로 표현되어야 합니다.', () => {});
 // it('위에 메뉴 이미지를 보여줍니다.', () => {}),
