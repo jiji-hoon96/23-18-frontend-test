@@ -1,9 +1,9 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MenuOption } from './MenuOption';
 import { userEvent } from '@testing-library/user-event';
 // import { userEvent } from '@testing-library/user-event';
 
-const sampleOne = {
+const sampleData = {
   name: '[국내산갈비] 전통 돼지갈비찜',
   isPopular: true,
   description: '1인분에만 밥이 포함되어있습니다 기본구성은 석박지+김+갈비찜입니다',
@@ -47,14 +47,14 @@ const sampleOne = {
 
 describe('MenuOption Component', () => {
   it('화면에 Ui와 Data가 정상적으로 출력이 됩니다', () => {
-    const { getByText } = render(<MenuOption {...sampleOne} />);
-    expect(getByText(sampleOne.name)).toBeInTheDocument();
-    expect(getByText(sampleOne.description)).toBeInTheDocument();
+    const { getByText } = render(<MenuOption {...sampleData} />);
+    expect(getByText(sampleData.name)).toBeInTheDocument();
+    expect(getByText(sampleData.description)).toBeInTheDocument();
     expect(getByText('수량')).toBeInTheDocument();
     expect(getByText('가격')).toBeInTheDocument();
     expect(getByText('메뉴 사진은 연출된 이미지로 실제 조리된 음식과 다를 수 있습니다.')).toBeInTheDocument();
     expect(getByText('배달최소금액')).toBeInTheDocument();
-    sampleOne.selectList.forEach((element) => {
+    sampleData.selectList.forEach((element) => {
       expect(getByText(element.price)).toBeInTheDocument();
       expect(getByText(element.name)).toBeInTheDocument();
     });
@@ -63,7 +63,7 @@ describe('MenuOption Component', () => {
   it('수량을 선택할 수 있습니다.', async () => {
     const user = userEvent.setup();
 
-    const { getByRole, queryByRole } = render(<MenuOption {...sampleOne} />);
+    const { getByRole, queryByRole } = render(<MenuOption {...sampleData} />);
     const decrementButton = getByRole('button', { name: 'decreaseBtn' });
     const increaseButton = getByRole('button', { name: 'increaseBtn' });
     const countSpan = queryByRole('span', { name: 'countSpan' });
@@ -79,13 +79,18 @@ describe('MenuOption Component', () => {
   });
 
   it('클릭하여 숫자를 조절할 수 있으며, 최소 값은 1입니다.', () => {
-    const { queryByRole } = render(<MenuOption {...sampleOne} />);
+    const { queryByRole } = render(<MenuOption {...sampleData} />);
     const countSpan = queryByRole('span', { name: 'countSpan' });
     expect(countSpan).toHaveTextContent('1');
   });
+
+  it('가장 아래에는 장바구니에 담기 버튼이 있습니다.', () => {
+    render(<MenuOption {...sampleData} />);
+    const addButton = screen.getByRole('button', { name: /.*원 담기/i });
+    expect(addButton).toBeInTheDocument();
+  });
 });
 
-//   it('가장 아래에는 장바구니에 담기 버튼이 있습니다.', () => {}),
 //   it('${최종_가격}원 담기 형식으로 표현되어야 합니다.', () => {});
 // it('위에 메뉴 이미지를 보여줍니다.', () => {}),
 //   it('이미지가 없으면 안보여줍니다.', () => {}),

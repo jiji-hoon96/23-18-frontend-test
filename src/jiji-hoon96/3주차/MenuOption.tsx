@@ -89,9 +89,11 @@ export const MenuOption = (sampleData: MenuOptionsProps) => {
           </div>
           <div>
             <button
-              onClick={() => alert(`${totalPrice}원을 주문하시겠습니까?`)}
+              onClick={() =>
+                alert(`${totalPrice === 0 ? sampleData.minOrderPrice : totalPrice}원을 주문하시겠습니까?`)
+              }
               className={S.add}
-            >{`${totalPrice}원 담기`}</button>
+            >{`${totalPrice === 0 ? sampleData.minOrderPrice : totalPrice}원 담기`}</button>
           </div>
         </div>
       </div>
