@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { MenuOption } from './MenuOption';
 import { userEvent } from '@testing-library/user-event';
 // import { userEvent } from '@testing-library/user-event';
@@ -66,13 +66,13 @@ describe('MenuOption Component', () => {
     const { getByRole } = render(<MenuOption {...sampleOne} />);
     const decrementButton = getByRole('button', { name: 'decreaseBtn' });
     const increaseButton = getByRole('button', { name: 'increaseBtn' });
-    const countInput = screen.getByDisplayValue(1);
+    const countSpan = getByRole('span', { name: 'countSpan' });
 
     await user.click(increaseButton); // 수량 증가
-    expect(countInput).toHaveValue('2');
+    expect(countSpan).toHaveValue('2');
 
     await user.click(decrementButton); // 수량 감소
-    expect(countInput).toHaveValue('1');
+    expect(countSpan).toHaveValue('1');
   });
 });
 

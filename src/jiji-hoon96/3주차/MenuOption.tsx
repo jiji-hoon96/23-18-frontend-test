@@ -71,7 +71,9 @@ export const MenuOption = (sampleData: MenuOptionsProps) => {
             <button role="button" aria-label="decreaseBtn" onClick={() => setCount((prev) => prev - 1)}>
               -
             </button>
-            <input value={count} defaultValue={count} />
+            <span role="span" aria-label="countSpan">
+              {count}
+            </span>
             <button role="button" aria-label="increaseBtn" onClick={() => setCount((prev) => prev + 1)}>
               +
             </button>
