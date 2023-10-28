@@ -28,23 +28,6 @@ const sampleData = {
   defaultPrice: 0,
 };
 
-// describe('MenuOption Component', () => {
-//   it('sample 1 테스트', async () => {
-//
-//     window.alert = jest.fn();
-//     // 수량 변경 테스트
-
-//     // 담기 버튼 클릭 테스트
-//     const addButton = screen.getByText('0원 담기');
-//     await user.click(addButton);
-
-//     // alert 테스트
-//     await waitFor(() => {
-//       expect(window.alert).toHaveBeenCalledWith('0원을 주문하시겠습니까?');
-//     });
-//   });
-// });
-
 describe('MenuOption Component', () => {
   it('화면에 Ui와 Data가 정상적으로 출력이 됩니다', () => {
     const { getByText } = render(<MenuOption {...sampleData} />);
@@ -84,16 +67,29 @@ describe('MenuOption Component', () => {
     expect(countSpan).toHaveTextContent('1');
   });
 
-  it('가장 아래에는 장바구니에 담기 버튼이 있습니다.', () => {
+  it('가장 아래에는 장바구니에 담기 버튼이 있고 ${최종가격}형태로 버튼이 있습니다.', () => {
     render(<MenuOption {...sampleData} />);
     const addButton = screen.getByRole('button', { name: /.*원 담기/i });
     expect(addButton).toBeInTheDocument();
   });
+  it('이미지가 존재하는지 테스트', () => {
+    render(<MenuOption {...sampleData} />);
+
+    const imgElement = screen.getByAltText(sampleData.name);
+    expect(imgElement).toBeInTheDocument();
+    expect(imgElement).toHaveAttribute('src', sampleData.image);
+  });
+  it('이미지가 없으면 baseURL 을 보여줍니다.', () => {
+    const sampleDataWithoutImage = { ...sampleData, image: null };
+    const { container } = render(<MenuOption {...sampleDataWithoutImage} />);
+    const imgElement = container.querySelector('img');
+
+    expect(imgElement).toBeInTheDocument();
+    expect(imgElement).toHaveAttribute('src', 'baseURL');
+    expect(imgElement).toHaveAttribute('alt', sampleDataWithoutImage.name);
+  });
 });
 
-//   it('${최종_가격}원 담기 형식으로 표현되어야 합니다.', () => {});
-// it('위에 메뉴 이미지를 보여줍니다.', () => {}),
-//   it('이미지가 없으면 안보여줍니다.', () => {}),
 //   it('<인기> 표시, 메뉴 이름, 설명을 보여줍니다.', () => {}),
 //   it('가격 옵션이 여러개인 경우', () => {}),
 //   it('가격 목록 아래에 라디오 버튼으로 옵션 중 하나를 선택해야 합니다.', () => {}),
