@@ -107,6 +107,27 @@ describe('MenuOption Component', () => {
     const popularTag = queryByText('인기');
     expect(popularTag).toBeNull();
   });
+
+  it('가격 옵션이 여러개인 경우', () => {
+    const { getByText, getByRole } = render(<MenuOption {...sampleData} />);
+
+    const optionList = getByRole('list');
+    expect(optionList).toBeInTheDocument();
+
+    sampleData.selectList.forEach((option) => {
+      const optionName = getByText(option.name);
+      expect(optionName).toBeInTheDocument();
+
+      const optionPrice = getByText(option.price.toString());
+      expect(optionPrice).toBeInTheDocument();
+    });
+  });
+
+  it('가격 옵션이 하나밖에 없는 경우', () => {
+    const { queryByRole } = render(<MenuOption {...{ ...sampleData, optionSelect: false }} />);
+    const optionList = queryByRole('list');
+    expect(optionList).toBeNull();
+  });
 });
 
 //   it('가격 옵션이 여러개인 경우', () => {}),
