@@ -25,10 +25,16 @@ describe('MenuOption Component', () => {
     expect(menuName).toHaveTextContent('왕김밥');
   });
 
-  it('메뉴에 대한 설명을 보여준다.', () => {
+  it('description prop이 있으면 메뉴에 대한 설명을 보여준다.', () => {
     const { getByRole } = renderMenuOption({ description: '맛있는 계란말이 김밥' });
     const menuDescription = getByRole('caption');
     expect(menuDescription).toHaveTextContent('맛있는 계란말이 김밥');
+  });
+
+  it('description prop이 없으면 메뉴에 대한 설명이 존재하지 않는다.', () => {
+    const { queryByRole } = renderMenuOption();
+    const menuDescription = queryByRole('caption');
+    expect(menuDescription).not.toBeInTheDocument();
   });
 
   describe('메뉴 이미지', () => {
@@ -49,13 +55,13 @@ describe('MenuOption Component', () => {
   describe('인기 표시 뱃지', () => {
     it('isPopular이 true면 인기 표시를 보여준다.', () => {
       const { getByRole } = renderMenuOption();
-      const badge = getByRole('badge'); //  bagde가 무엇인지 모르겠음
+      const badge = getByRole('badge');
       expect(badge).toBeInTheDocument();
     });
 
     it('isPopular이 false면 인기 표시를 보여주지 않는다.', () => {
-      const { getByRole } = renderMenuOption();
-      expect(getByRole('badge')).not.toBeInTheDocument();
+      const { queryByRole } = renderMenuOption({ isPopular: false });
+      expect(queryByRole('badge')).not.toBeInTheDocument();
     });
   });
 
@@ -82,7 +88,7 @@ describe('MenuOption Component', () => {
     });
 
     it('가격 옵션이 하나인 경우 가격만 표시한다.', () => {
-      const { getByRole } = renderMenuOption({
+      const { getByTestId } = renderMenuOption({
         options: [
           {
             name: '2줄',
@@ -90,7 +96,7 @@ describe('MenuOption Component', () => {
           },
         ],
       });
-      const menuPrice = getByRole('menuPrice');
+      const menuPrice = getByTestId('priceOnly');
       expect(menuPrice).toHaveTextContent('2,700원');
     });
 
@@ -141,7 +147,7 @@ describe('MenuOption Component', () => {
           ],
         });
         const plusBtn = getByRole('button', { name: '수량 증가' });
-        const menuPrice = getByRole('menuPrice');
+        const menuPrice = getByRole('button', { name: '최종금액' });
 
         expect(menuPrice).toHaveTextContent('2,700원');
 
@@ -162,7 +168,7 @@ describe('MenuOption Component', () => {
         });
         const minusBtn = getByRole('button', { name: '수량 감소' });
         const plusBtn = getByRole('button', { name: '수량 증가' });
-        const menuPrice = getByRole('menuPrice');
+        const menuPrice = getByRole('button', { name: '최종금액' });
 
         await user.click(plusBtn);
         expect(menuPrice).toHaveTextContent('5,400원');
