@@ -88,9 +88,27 @@ describe('MenuOption Component', () => {
     expect(imgElement).toHaveAttribute('src', 'baseURL');
     expect(imgElement).toHaveAttribute('alt', sampleDataWithoutImage.name);
   });
+  it('<인기> 표시, 메뉴이름, 설명을 보여줍니다', () => {
+    const { getByText } = render(<MenuOption {...sampleData} />);
+
+    const popularTag = getByText('인기');
+    expect(popularTag).toBeInTheDocument();
+
+    const menuName = getByText(sampleData.name);
+    expect(menuName).toBeInTheDocument();
+
+    const description = getByText(sampleData.description);
+    expect(description).toBeInTheDocument();
+  });
+
+  it('<인기> 가 없을 때 <인기> 태그를 보여주지 않습니다', () => {
+    const { queryByText } = render(<MenuOption {...{ ...sampleData, isPopular: false }} />);
+
+    const popularTag = queryByText('인기');
+    expect(popularTag).toBeNull();
+  });
 });
 
-//   it('<인기> 표시, 메뉴 이름, 설명을 보여줍니다.', () => {}),
 //   it('가격 옵션이 여러개인 경우', () => {}),
 //   it('가격 목록 아래에 라디오 버튼으로 옵션 중 하나를 선택해야 합니다.', () => {}),
 //   it('가격 옵션이 하나인 경우', () => {}),
