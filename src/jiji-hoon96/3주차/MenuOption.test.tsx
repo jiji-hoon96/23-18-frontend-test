@@ -81,8 +81,8 @@ describe('MenuOption Component', () => {
   });
   it('이미지가 없으면 baseURL 을 보여줍니다.', () => {
     const sampleDataWithoutImage = { ...sampleData, image: null };
-    const { container } = render(<MenuOption {...sampleDataWithoutImage} />);
-    const imgElement = container.querySelector('img');
+    const { queryByRole } = render(<MenuOption {...sampleDataWithoutImage} />);
+    const imgElement = queryByRole('img');
 
     expect(imgElement).toBeInTheDocument();
     expect(imgElement).toHaveAttribute('src', 'baseURL');
