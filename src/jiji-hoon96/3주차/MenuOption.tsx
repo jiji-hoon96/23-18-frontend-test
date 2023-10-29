@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import S from './MenuOption.module.css';
 import { MenuOptionsProps } from './types';
 
+const MINIMUM_VALUE = 1;
+
 export const MenuOption = (sampleData: MenuOptionsProps) => {
   const [count, setCount] = useState<number>(1);
   const [totalPrice, setTotalPrice] = useState<number>(0);
@@ -68,7 +70,15 @@ export const MenuOption = (sampleData: MenuOptionsProps) => {
         <div className={S.mainHeader}>
           <p className={S.name}>수량</p>
           <div className={S.amountBox}>
-            <button role="button" aria-label="decreaseBtn" onClick={() => setCount((prev) => prev - 1)}>
+            <button
+              role="button"
+              aria-label="decreaseBtn"
+              onClick={() => {
+                if (count > MINIMUM_VALUE) {
+                  setCount((prev) => prev - 1);
+                }
+              }}
+            >
               -
             </button>
             <span role="span" aria-label="countSpan">

@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { MenuOption } from './MenuOption';
 import { userEvent } from '@testing-library/user-event';
-// import { userEvent } from '@testing-library/user-event';
 
 const sampleData = {
   name: '[국내산갈비] 전통 돼지갈비찜',
@@ -54,17 +53,23 @@ describe('MenuOption Component', () => {
     expect(countSpan).toHaveTextContent('2');
     await user.click(decrementButton);
     expect(countSpan).toHaveTextContent('1');
-    await user.click(decrementButton);
-    await user.click(increaseButton);
-    await user.click(increaseButton);
-    await user.click(increaseButton);
-    expect(countSpan).toHaveTextContent('3');
   });
 
-  it('클릭하여 숫자를 조절할 수 있으며, 최소 값은 1입니다.', () => {
-    const { queryByRole } = render(<MenuOption {...sampleData} />);
-    const countSpan = queryByRole('span', { name: 'countSpan' });
-    expect(countSpan).toHaveTextContent('1');
+  it('클릭하여 숫자를 조절할 수 있으며, 최소 값은 1입니다.', async () => {
+    const { getByLabelText } = render(<MenuOption {...sampleData} />);
+    const user = userEvent.setup();
+
+    const decreaseButton = getByLabelText('decreaseBtn');
+    const increaseButton = getByLabelText('increaseBtn');
+    const countSpan = getByLabelText('countSpan');
+
+    expect(Number(countSpan.textContent)).toBeGreaterThanOrEqual(1);
+
+    await user.click(decreaseButton);
+    expect(Number(countSpan.textContent)).toBeGreaterThanOrEqual(1);
+
+    await user.click(increaseButton);
+    expect(Number(countSpan.textContent)).toBeGreaterThanOrEqual(1);
   });
 
   it('가장 아래에는 장바구니에 담기 버튼이 있고 ${최종가격}형태로 버튼이 있습니다.', () => {
