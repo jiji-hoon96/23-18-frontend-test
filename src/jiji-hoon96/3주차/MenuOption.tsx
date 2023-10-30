@@ -1,20 +1,21 @@
 import { useEffect, useState } from 'react';
 import S from './MenuOption.module.css';
 import { MenuOptionsProps } from './types';
-
-const MINIMUM_VALUE = 1;
+import { CHANGE_AMOUNT, DEFAULT_AMOUNT, MINIMUM_VALUE } from './constant';
 
 export const MenuOption = (sampleData: MenuOptionsProps) => {
-  const [count, setCount] = useState<number>(1);
-  const [selectedPrice, setSelectedPrice] = useState(sampleData?.selectList[0].price ?? 0);
-  const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [count, setCount] = useState<number>(MINIMUM_VALUE);
+  const [selectedPrice, setSelectedPrice] = useState(
+    sampleData?.selectList[DEFAULT_AMOUNT].price ?? DEFAULT_AMOUNT,
+  );
+  const [totalPrice, setTotalPrice] = useState<number>(DEFAULT_AMOUNT);
 
   const changeCount = (type: string) => {
     if (type === 'increase') {
-      setCount((prev) => prev + 1);
+      setCount((prev) => prev + CHANGE_AMOUNT);
     } else {
       if (count > MINIMUM_VALUE) {
-        setCount((prev) => prev - 1);
+        setCount((prev) => prev - CHANGE_AMOUNT);
       }
     }
   };
@@ -102,10 +103,14 @@ export const MenuOption = (sampleData: MenuOptionsProps) => {
           <div>
             <button
               onClick={() =>
-                alert(`${totalPrice === 0 ? sampleData.minOrderPrice : totalPrice}원을 주문하시겠습니까?`)
+                alert(
+                  `${
+                    totalPrice === DEFAULT_AMOUNT ? sampleData.minOrderPrice : totalPrice
+                  }원을 주문하시겠습니까?`,
+                )
               }
               className={S.add}
-            >{`${totalPrice === 0 ? sampleData.minOrderPrice : totalPrice}원 담기`}</button>
+            >{`${totalPrice === DEFAULT_AMOUNT ? sampleData.minOrderPrice : totalPrice}원 담기`}</button>
           </div>
         </div>
       </div>
