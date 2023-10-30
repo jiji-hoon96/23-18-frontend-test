@@ -6,17 +6,16 @@ const MINIMUM_VALUE = 1;
 
 export const MenuOption = (sampleData: MenuOptionsProps) => {
   const [count, setCount] = useState<number>(1);
+  const [selectedPrice, setSelectedPrice] = useState(sampleData?.selectList[0].price ?? 0);
   const [totalPrice, setTotalPrice] = useState<number>(0);
-
-  //TODOS : selectOption 있어도 수량 체크하는 것 있음.
 
   useEffect(() => {
     setTotalPrice(sampleData.defaultPrice * count);
   }, [sampleData.defaultPrice, count, sampleData.optionSelect]);
 
-  const handleOptionSelect = (price: number) => {
-    setTotalPrice(price * count);
-  };
+  useEffect(() => {
+    setTotalPrice(selectedPrice * count);
+  }, [selectedPrice, count]);
 
   return (
     <>
@@ -46,25 +45,26 @@ export const MenuOption = (sampleData: MenuOptionsProps) => {
             )}
           </div>
           {sampleData.optionSelect && (
-            <ul className={S.tagList}>
+            <fieldset role="radiogroup" className={S.tagList}>
               {sampleData.selectList.every((item) => !item)
                 ? ''
-                : sampleData.selectList.map((select, index) => (
-                    <li key={index} className={S.sampleDataList}>
+                : sampleData.selectList.map(({ name, price }, index) => (
+                    <label key={index} className={S.sampleDataList} aria-label="labelList">
                       <div>
                         <input
-                          name="menuSelect"
+                          aria-label={name}
+                          name="menu"
                           type="radio"
-                          checked
-                          value={select.price}
-                          onChange={() => handleOptionSelect(select.price)}
+                          value={price}
+                          onChange={() => setSelectedPrice(price)}
+                          checked={price === selectedPrice}
                         />
-                        <span>{select.name}</span>
+                        <span>{name}</span>
                       </div>
-                      <span>{select.price}</span>
-                    </li>
+                      <span>{price}</span>
+                    </label>
                   ))}
-            </ul>
+            </fieldset>
           )}
         </div>
         <div className={S.mainHeader}>

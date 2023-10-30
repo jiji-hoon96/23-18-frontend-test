@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { MenuOption } from './MenuOption';
 import { userEvent } from '@testing-library/user-event';
 
@@ -73,14 +73,14 @@ describe('MenuOption Component', () => {
   });
 
   it('가장 아래에는 장바구니에 담기 버튼이 있고 ${최종가격}형태로 버튼이 있습니다.', () => {
-    render(<MenuOption {...sampleData} />);
-    const addButton = screen.getByRole('button', { name: /.*원 담기/i });
+    const { getByRole } = render(<MenuOption {...sampleData} />);
+    const addButton = getByRole('button', { name: /.*원 담기/i });
     expect(addButton).toBeInTheDocument();
   });
   it('이미지가 존재하는지 테스트', () => {
-    render(<MenuOption {...sampleData} />);
+    const { getByAltText } = render(<MenuOption {...sampleData} />);
 
-    const imgElement = screen.getByAltText(sampleData.name);
+    const imgElement = getByAltText(sampleData.name);
     expect(imgElement).toBeInTheDocument();
     expect(imgElement).toHaveAttribute('src', sampleData.image);
   });
@@ -114,10 +114,10 @@ describe('MenuOption Component', () => {
   });
 
   it('가격 옵션이 여러개인 경우', () => {
-    const { getByText, getByRole } = render(<MenuOption {...sampleData} />);
+    const { getByText, getAllByLabelText } = render(<MenuOption {...sampleData} />);
 
-    const optionList = getByRole('list');
-    expect(optionList).toBeInTheDocument();
+    const labels = getAllByLabelText(/labelList/i);
+    expect(labels).toHaveLength(3);
 
     sampleData.selectList.forEach((option) => {
       const optionName = getByText(option.name);
@@ -133,9 +133,31 @@ describe('MenuOption Component', () => {
     const optionList = queryByRole('list');
     expect(optionList).toBeNull();
   });
-});
 
-//   it('가격 옵션이 여러개인 경우', () => {}),
-//   it('가격 목록 아래에 라디오 버튼으로 옵션 중 하나를 선택해야 합니다.', () => {}),
-//   it('가격 옵션이 하나인 경우', () => {}),
-//   it('가격만 표시합니다.', () => {}),
+  it('가격 목록 아래에 라디오 버튼으로 보여줘야 함', () => {
+    const { getByRole } = render(<MenuOption {...sampleData} />);
+    expect(getByRole('radio', { name: sampleData.selectList[0].name })).toBeInTheDocument();
+    expect(getByRole('radio', { name: sampleData.selectList[1].name })).toBeInTheDocument();
+    expect(getByRole('radio', { name: sampleData.selectList[2].name })).toBeInTheDocument();
+  });
+
+  it('처음에 첫 번째 라디오 버튼이 선택되어 있어야 한다.', () => {
+    const { getByRole } = render(<MenuOption {...sampleData} />);
+    expect(getByRole('radio', { name: sampleData.selectList[0].name })).toBeChecked();
+    expect(getByRole('radio', { name: sampleData.selectList[1].name })).not.toBeChecked();
+    expect(getByRole('radio', { name: sampleData.selectList[2].name })).not.toBeChecked();
+    expect(getByRole('radiogroup')).toHaveFormValues({ menu: '18000' });
+  });
+
+  it('라디오 버튼을 클릭하면 해당 버튼이 선택되어야 한다.', async () => {
+    const user = userEvent.setup();
+    const { getByRole } = render(<MenuOption {...sampleData} />);
+    const radioButton = getByRole('radio', { name: sampleData.selectList[1].name });
+
+    await user.click(radioButton);
+
+    expect(radioButton).toBeChecked();
+
+    expect(getByRole('radiogroup')).toHaveFormValues({ menu: '30000' });
+  });
+});
