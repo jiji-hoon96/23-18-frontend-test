@@ -9,6 +9,12 @@ export const MenuOption = (sampleData: MenuOptionsProps) => {
   const [selectedPrice, setSelectedPrice] = useState(sampleData?.selectList[0].price ?? 0);
   const [totalPrice, setTotalPrice] = useState<number>(0);
 
+  const changeCount = (type: string) => {
+    if ((type === 'increase' && count <= MINIMUM_VALUE) || type === 'decrease') {
+      setCount((prev) => prev + (type === 'increase' ? 1 : -1));
+    }
+  };
+
   useEffect(() => {
     setTotalPrice(sampleData.defaultPrice * count);
   }, [sampleData.defaultPrice, count, sampleData.optionSelect]);
@@ -70,21 +76,13 @@ export const MenuOption = (sampleData: MenuOptionsProps) => {
         <div className={S.mainHeader}>
           <p className={S.name}>수량</p>
           <div className={S.amountBox}>
-            <button
-              role="button"
-              aria-label="decreaseBtn"
-              onClick={() => {
-                if (count > MINIMUM_VALUE) {
-                  setCount((prev) => prev - 1);
-                }
-              }}
-            >
+            <button role="button" aria-label="decreaseBtn" onClick={() => changeCount('decrease')}>
               -
             </button>
             <span role="span" aria-label="countSpan">
               {count}
             </span>
-            <button role="button" aria-label="increaseBtn" onClick={() => setCount((prev) => prev + 1)}>
+            <button role="button" aria-label="increaseBtn" onClick={() => changeCount('increase')}>
               +
             </button>
           </div>
