@@ -10,8 +10,12 @@ export const MenuOption = (sampleData: MenuOptionsProps) => {
   const [totalPrice, setTotalPrice] = useState<number>(0);
 
   const changeCount = (type: string) => {
-    if ((type === 'increase' && count <= MINIMUM_VALUE) || type === 'decrease') {
-      setCount((prev) => prev + (type === 'increase' ? 1 : -1));
+    if (type === 'increase') {
+      setCount((prev) => prev + 1);
+    } else {
+      if (count > MINIMUM_VALUE) {
+        setCount((prev) => prev - 1);
+      }
     }
   };
 
