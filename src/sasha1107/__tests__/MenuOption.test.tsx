@@ -54,7 +54,7 @@ describe('MenuOption Component', () => {
 
   describe('인기 표시 뱃지', () => {
     it('isPopular이 true면 인기 표시를 보여준다.', () => {
-      const { getByRole } = renderMenuOption();
+      const { getByRole } = renderMenuOption({ isPopular: true });
       const badge = getByRole('badge');
       expect(badge).toBeInTheDocument();
     });
