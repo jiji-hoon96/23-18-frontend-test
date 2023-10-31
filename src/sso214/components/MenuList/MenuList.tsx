@@ -11,16 +11,25 @@ interface Props {
 }
 
 const MenuList = ({ title, menus }: Props) => {
-  const renderItem = useCallback(({ item }: { item: MenuInfo }) => <Menu menu={item} />, []);
+  const renderItem = useCallback(
+    ({ item }: { item: MenuInfo }) => <Menu data-testid="item" menu={item} />,
+    [],
+  );
   const keyExtractor = useCallback((item: MenuInfo) => item.name, []);
 
   return (
     <>
-      <Heading headingLevel="h2" className={S.title}>
+      <Heading headingLevel="h2" className={S.title} data-testid="title">
         {title}
       </Heading>
 
-      <List<MenuInfo> containerTag="ul" data={menus} renderItem={renderItem} keyExtractor={keyExtractor} />
+      <List<MenuInfo>
+        containerTag="ul"
+        data={menus}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+        data-testid="list"
+      />
     </>
   );
 };
