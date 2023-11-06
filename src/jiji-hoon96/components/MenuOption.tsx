@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import S from './MenuOption.module.css';
-import { MenuOptionsProps } from './types';
-import { CHANGE_AMOUNT, DEFAULT_AMOUNT, MINIMUM_VALUE } from './constant';
+import { MenuOptionsProps } from '../3주차/types';
+import { CHANGE_AMOUNT, DEFAULT_AMOUNT, MINIMUM_VALUE } from '../3주차/constant';
 
 export const MenuOption = (sampleData: MenuOptionsProps) => {
   const [count, setCount] = useState<number>(MINIMUM_VALUE);
