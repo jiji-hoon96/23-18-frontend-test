@@ -1,8 +1,10 @@
 import React from 'react';
 import S from './style.module.css';
 
-type HeadingLevel = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p';
-interface Props extends React.HTMLAttributes<HTMLHeadingElement> {
+export const HEADING_LEVEL = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'];
+type HeadingLevel = (typeof HEADING_LEVEL)[number];
+
+export interface Props extends React.HTMLAttributes<HTMLHeadingElement> {
   headingLevel: HeadingLevel;
 }
 
@@ -20,7 +22,7 @@ const Heading = ({ headingLevel, children, className = '', ...res }: Props) => {
   };
 
   return (
-    <Heading className={`${headingStyle[headingLevel]} ${className}`} {...res}>
+    <Heading data-testid="heading" className={`${headingStyle[headingLevel]} ${className}`} {...res}>
       {children}
     </Heading>
   );
