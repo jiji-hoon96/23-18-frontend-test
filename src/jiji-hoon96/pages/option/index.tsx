@@ -6,13 +6,16 @@ const Option = () => {
   const { menuId, storeId } = useParams();
   const navigate = useNavigate();
 
-  const storeData = store.find((item) => item.storeId === Number(storeId));
-  const menu = storeData?.menus.find((item) => item.id === Number(menuId));
-  if (!menu) return null;
+  const menu = store
+    .find((item) => item.storeId === Number(storeId))
+    ?.menus.find((item) => item.id === Number(menuId));
+
+  if (!menu) return <div>메뉴를 찾을 수 없습니다.</div>;
+
   return (
     <div>
-      <button role="button" aria-label="뒤로가기" onClick={() => navigate(-1)}>
-        뒤로가기
+      <button role="button" aria-label="이전 페이지로 이동" onClick={() => navigate(-1)}>
+        이전 페이지
       </button>
       <MenuOption {...menu} />
     </div>

@@ -1,5 +1,5 @@
 import S from './Menu.module.css';
-import { MenuProps } from './types';
+import { MenuProps } from '../types/menu';
 
 interface MenuListProps {
   title: string;

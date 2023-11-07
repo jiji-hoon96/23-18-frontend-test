@@ -1,11 +1,12 @@
 export interface MenuOptionsProps {
+  id: number;
   name: string;
   isPopular: boolean;
   description: string;
-  review: number;
-  optionSelect: boolean;
-  selectList: { name: string; price: number }[] | [];
-  image: string | null;
-  minOrderPrice: number;
-  defaultPrice: number;
+  options: {
+    name?: string;
+    price: number;
+  }[];
+  tags: string[];
+  image?: string;
 }
