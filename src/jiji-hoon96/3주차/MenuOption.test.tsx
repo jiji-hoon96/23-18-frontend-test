@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { MenuOption } from '../components/MenuOption';
+import { MenuOption } from '../pages/option';
 import { userEvent } from '@testing-library/user-event';
 import { MenuOptionsProps } from './types';
 import { sampleData } from './mockData';

@@ -1,5 +1,5 @@
 import { screen, render } from '@testing-library/react';
-import { Menu } from './Menu';
+import { Menu } from '../components/Menu';
 
 describe('Menu 컴포넌트 테스트', () => {
   const title = '분식의 왕';

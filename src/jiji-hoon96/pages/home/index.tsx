@@ -4,7 +4,7 @@ import store from '../../constants/store.json';
 const Home = () => {
   return (
     <div>
-      <h1>Home</h1>
+      <h1>Store List</h1>
       <ul>
         {store.map(({ storeId, title }) => (
           <li key={storeId}>
